@@ -1,4 +1,4 @@
-```xml id="8w8vmt"
+
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout
@@ -15,4 +15,4 @@
         android:textSize="22sp"/>
 
 </LinearLayout>
-```
+
