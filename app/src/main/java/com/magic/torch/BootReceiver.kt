@@ -1,4 +1,3 @@
-```kotlin id="3p5hri"
 package com.magic.torch
 
 import android.content.BroadcastReceiver
@@ -26,4 +25,3 @@ class BootReceiver : BroadcastReceiver() {
         }
     }
 }
-```
