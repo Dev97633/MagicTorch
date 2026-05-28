@@ -1,4 +1,4 @@
-```gradle id="r3nrbq"
+
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
@@ -54,4 +54,4 @@ dependencies {
     implementation 'com.google.android.material:material:1.11.0'
 
 }
-```
+
