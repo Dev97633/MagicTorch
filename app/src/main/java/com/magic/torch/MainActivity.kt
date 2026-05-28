@@ -1,4 +1,4 @@
-```kotlin id="6rmbn5"
+
 package com.magic.torch
 
 import android.Manifest
@@ -83,4 +83,4 @@ class MainActivity : AppCompatActivity() {
         )
     }
 }
-```
+
