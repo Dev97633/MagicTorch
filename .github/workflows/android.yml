@@ -1,18 +1,17 @@
-```yaml id="m7wdx0"
+```yaml id="l5aqk3"
 name: Android Build
 
 on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-
       - name: Checkout Repository
         uses: actions/checkout@v4
 
@@ -20,20 +19,20 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: 17
+          java-version: '17'
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Make gradlew executable
+      - name: Grant Permission
         run: chmod +x gradlew
 
-      - name: Build Debug APK
+      - name: Build APK
         run: ./gradlew assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: MagicTorch-APK
+          name: app-debug-apk
           path: app/build/outputs/apk/debug/app-debug.apk
 ```
