@@ -1,4 +1,4 @@
-```gradle id="w5p3wk"
+
 buildscript {
     ext.kotlin_version = '1.9.22'
 
@@ -19,4 +19,4 @@ allprojects {
         mavenCentral()
     }
 }
-```
+
