@@ -1,4 +1,4 @@
-```kotlin id="twfzva"
+
 package com.magic.torch
 
 import android.app.Notification
@@ -130,4 +130,4 @@ class ShakeService : Service(), SensorEventListener {
         return null
     }
 }
-```
+
