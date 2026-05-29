@@ -6,6 +6,7 @@ import android.app.NotificationManager
 import android.app.Service
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ServiceInfo
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
@@ -14,13 +15,16 @@ import android.hardware.camera2.CameraCharacteristics
 import android.hardware.camera2.CameraManager
 import android.os.Build
 import android.os.IBinder
+import android.os.PowerManager
 import androidx.core.app.NotificationCompat
+import androidx.core.app.ServiceCompat
 import kotlin.math.sqrt
 
 class ShakeService : Service(), SensorEventListener {
 
     private lateinit var sensorManager: SensorManager
     private lateinit var cameraManager: CameraManager
+    private var wakeLock: PowerManager.WakeLock? = null
 
     private var torchState = false
     private var lastShake = 0L
@@ -30,6 +34,7 @@ class ShakeService : Service(), SensorEventListener {
         super.onCreate()
 
         createNotification()
+        acquireWakeLock()
 
         sensorManager =
             getSystemService(Context.SENSOR_SERVICE) as SensorManager
@@ -50,8 +55,16 @@ class ShakeService : Service(), SensorEventListener {
         sensorManager.registerListener(
             this,
             sensor,
-            SensorManager.SENSOR_DELAY_UI
+            SensorManager.SENSOR_DELAY_NORMAL
         )
+    }
+
+    override fun onStartCommand(
+        intent: Intent?,
+        flags: Int,
+        startId: Int
+    ): Int {
+        return START_STICKY
     }
 
     override fun onSensorChanged(event: SensorEvent?) {
@@ -129,7 +142,35 @@ class ShakeService : Service(), SensorEventListener {
                 .setOngoing(true)
                 .build()
 
-        startForeground(1, notification)
+        ServiceCompat.startForeground(
+            this,
+            FOREGROUND_NOTIFICATION_ID,
+            notification,
+            foregroundServiceType()
+        )
+    }
+
+    private fun foregroundServiceType(): Int {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE
+        } else {
+            0
+        }
+    }
+
+    private fun acquireWakeLock() {
+        if (wakeLock?.isHeld == true) {
+            return
+        }
+
+        val powerManager = getSystemService(Context.POWER_SERVICE) as PowerManager
+        wakeLock = powerManager.newWakeLock(
+            PowerManager.PARTIAL_WAKE_LOCK,
+            "$packageName:ShakeTorchSensor"
+        ).apply {
+            setReferenceCounted(false)
+            acquire()
+        }
     }
 
     override fun onAccuracyChanged(
@@ -153,6 +194,13 @@ class ShakeService : Service(), SensorEventListener {
             }
         }
 
+        wakeLock?.let { lock ->
+            if (lock.isHeld) {
+                lock.release()
+            }
+        }
+        wakeLock = null
+
         super.onDestroy()
     }
 
@@ -161,6 +209,7 @@ class ShakeService : Service(), SensorEventListener {
     }
 
     companion object {
+        private const val FOREGROUND_NOTIFICATION_ID = 1
         private const val NOTIFICATION_CHANNEL_ID = "shake_torch"
         private const val SHAKE_THRESHOLD = 15.0
         private const val SHAKE_COOLDOWN_MS = 1000L
