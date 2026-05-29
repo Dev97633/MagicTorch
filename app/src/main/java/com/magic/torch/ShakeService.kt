@@ -3,6 +3,7 @@ package com.magic.torch
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.app.Service
 import android.content.Context
 import android.content.Intent
@@ -157,11 +158,19 @@ class ShakeService : Service(), SensorEventListener {
             manager.createNotificationChannel(channel)
         }
 
+        val contentIntent = PendingIntent.getActivity(
+            this,
+            0,
+            Intent(this, MainActivity::class.java),
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+
         val notification: Notification =
             NotificationCompat.Builder(this, channelId)
                 .setContentTitle(getString(R.string.notification_title))
                 .setContentText(getString(R.string.notification_text))
                 .setSmallIcon(android.R.drawable.ic_menu_camera)
+                .setContentIntent(contentIntent)
                 .setOngoing(true)
                 .build()
 
