@@ -26,8 +26,10 @@ class ShakeService : Service(), SensorEventListener {
     private lateinit var cameraManager: CameraManager
     private var wakeLock: PowerManager.WakeLock? = null
 
+    private val gravity = FloatArray(3)
     private var torchState = false
     private var lastShake = 0L
+    private var lastStrongAcceleration = 0L
     private var flashCameraId: String? = null
 
     override fun onCreate() {
@@ -70,21 +72,42 @@ class ShakeService : Service(), SensorEventListener {
     override fun onSensorChanged(event: SensorEvent?) {
         event ?: return
 
-        val x = event.values[0]
-        val y = event.values[1]
-        val z = event.values[2]
+        updateGravity(event.values)
+
+        val linearX = event.values[0] - gravity[0]
+        val linearY = event.values[1] - gravity[1]
+        val linearZ = event.values[2] - gravity[2]
 
         val acceleration =
-            sqrt((x * x + y * y + z * z).toDouble())
+            sqrt(
+                (linearX * linearX + linearY * linearY + linearZ * linearZ)
+                    .toDouble()
+            )
 
-        if (acceleration > SHAKE_THRESHOLD) {
-            val currentTime = System.currentTimeMillis()
-
-            if (currentTime - lastShake > SHAKE_COOLDOWN_MS) {
-                lastShake = currentTime
-                toggleTorch()
-            }
+        if (acceleration <= SHAKE_THRESHOLD) {
+            return
         }
+
+        val currentTime = System.currentTimeMillis()
+        val isConfirmedShake =
+            currentTime - lastStrongAcceleration <= SHAKE_CONFIRMATION_WINDOW_MS
+
+        lastStrongAcceleration = currentTime
+
+        if (isConfirmedShake && currentTime - lastShake > SHAKE_COOLDOWN_MS) {
+            lastShake = currentTime
+            lastStrongAcceleration = 0L
+            toggleTorch()
+        }
+    }
+
+    private fun updateGravity(values: FloatArray) {
+        gravity[0] = gravity[0] * GRAVITY_FILTER_ALPHA +
+            values[0] * (1 - GRAVITY_FILTER_ALPHA)
+        gravity[1] = gravity[1] * GRAVITY_FILTER_ALPHA +
+            values[1] * (1 - GRAVITY_FILTER_ALPHA)
+        gravity[2] = gravity[2] * GRAVITY_FILTER_ALPHA +
+            values[2] * (1 - GRAVITY_FILTER_ALPHA)
     }
 
     private fun toggleTorch() {
@@ -211,7 +234,9 @@ class ShakeService : Service(), SensorEventListener {
     companion object {
         private const val FOREGROUND_NOTIFICATION_ID = 1
         private const val NOTIFICATION_CHANNEL_ID = "shake_torch"
-        private const val SHAKE_THRESHOLD = 15.0
-        private const val SHAKE_COOLDOWN_MS = 1000L
+        private const val GRAVITY_FILTER_ALPHA = 0.8f
+        private const val SHAKE_THRESHOLD = 19.5
+        private const val SHAKE_CONFIRMATION_WINDOW_MS = 350L
+        private const val SHAKE_COOLDOWN_MS = 1500L
     }
 }
