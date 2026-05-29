@@ -8,4 +8,11 @@
     <string name="notification_channel_name">Shake Torch</string>
     <string name="notification_title">Shake Torch Running</string>
     <string name="notification_text">Shake the phone firmly to toggle the flashlight.</string>
+    <string name="hide_launcher_icon_title">Hide launcher icon?</string>
+    <string name="hide_launcher_icon_confirmation">The app icon will be removed from the launcher only. To get it back, dial %1$s, or tap the Shake Torch notification while the service is running.</string>
+    <string name="hide_launcher_icon_confirm">Hide icon</string>
+    <string name="launcher_icon_hidden">Launcher icon hidden. To restore it, dial %1$s or tap the Shake Torch notification while it is running.</string>
+    <string name="launcher_icon_restored">Launcher icon restored.</string>
+    <string name="hide_launcher_icon_switch">Hide launcher icon</string>
+    <string name="launcher_icon_recovery_hint">Recovery: dial *#*#62442#*#* or tap the running Shake Torch notification.</string>
 </resources>
