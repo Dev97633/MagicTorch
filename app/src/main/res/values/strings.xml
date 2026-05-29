@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">MagicTorch</string>
+    <string name="ready_to_start">Ready. Tap Start Shake Torch and shake the phone firmly to toggle the flashlight.</string>
+    <string name="shake_torch_running">Shake Torch is running. Shake the phone firmly to toggle the flashlight.</string>
+    <string name="shake_torch_stopped">Shake Torch stopped.</string>
+    <string name="camera_permission_required">Camera permission is required to control the flashlight.</string>
+    <string name="no_flash_available">No flashlight was found on this device.</string>
+    <string name="notification_channel_name">Shake Torch</string>
+    <string name="notification_title">Shake Torch Running</string>
+    <string name="notification_text">Shake the phone firmly to toggle the flashlight.</string>
 </resources>
