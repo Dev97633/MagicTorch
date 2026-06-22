@@ -12,6 +12,8 @@
 
 
 
+    <style name="Widget.MagicTorch" />
+
     <style name="Widget.MagicTorch.MenuButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="cornerRadius">18dp</item>
         <item name="android:minHeight">48dp</item>
@@ -60,4 +62,3 @@
     </style>
 
 </resources>
-
