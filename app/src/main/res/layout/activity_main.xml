@@ -1,68 +1,196 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical"
-    android:padding="24dp">
+    android:background="@color/app_background"
+    android:fillViewport="true">
 
-    <TextView
-        android:id="@+id/titleText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Magic Torch"
-        android:textSize="26sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/statusText"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:gravity="center"
-        android:text="Grant camera permission, then tap Start Shake Torch."
-        android:textSize="18sp" />
+        android:orientation="vertical"
+        android:padding="20dp">
 
-    <Button
-        android:id="@+id/startButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Start Shake Torch" />
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/hero_card"
+            app:cardCornerRadius="28dp"
+            app:cardElevation="0dp"
+            app:strokeColor="@color/card_stroke"
+            app:strokeWidth="1dp">
 
-    <Button
-        android:id="@+id/stopButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="Stop Shake Torch" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="24dp">
 
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/hideIconSwitch"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/hide_launcher_icon_switch"
-        android:textSize="16sp" />
+                <TextView
+                    android:id="@+id/titleText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/app_name_display"
+                    android:textColor="@color/text_primary"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/recoveryText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:gravity="center"
-        android:text="@string/launcher_icon_recovery_hint"
-        android:textSize="13sp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:text="@string/app_tagline"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="15sp" />
 
-    <TextView
-        android:id="@+id/helpText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:gravity="center"
-        android:text="Keep the service notification enabled. Shake the phone firmly to toggle the flashlight."
-        android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/statusText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:background="@drawable/status_pill_background"
+                    android:gravity="center"
+                    android:padding="14dp"
+                    android:text="@string/grant_permission_prompt"
+                    android:textColor="@color/text_primary"
+                    android:textSize="16sp" />
 
-</LinearLayout>
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:baselineAligned="false"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/torchMenuButton"
+                style="@style/Widget.MagicTorch.MenuButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/menu_torch" />
+
+            <Button
+                android:id="@+id/privacyMenuButton"
+                style="@style/Widget.MagicTorch.MenuButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:text="@string/menu_privacy" />
+
+            <Button
+                android:id="@+id/helpMenuButton"
+                style="@style/Widget.MagicTorch.MenuButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:text="@string/menu_help" />
+
+        </LinearLayout>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/torchPanel"
+            style="@style/Widget.MagicTorch.PanelCard">
+
+            <LinearLayout
+                style="@style/Widget.MagicTorch.PanelContent">
+
+                <TextView
+                    style="@style/TextAppearance.MagicTorch.SectionTitle"
+                    android:text="@string/torch_panel_title" />
+
+                <TextView
+                    style="@style/TextAppearance.MagicTorch.Body"
+                    android:text="@string/torch_panel_body" />
+
+                <Button
+                    android:id="@+id/startButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/start_shake_torch" />
+
+                <Button
+                    android:id="@+id/stopButton"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/stop_shake_torch" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/privacyPanel"
+            style="@style/Widget.MagicTorch.PanelCard"
+            android:visibility="gone">
+
+            <LinearLayout
+                style="@style/Widget.MagicTorch.PanelContent">
+
+                <TextView
+                    style="@style/TextAppearance.MagicTorch.SectionTitle"
+                    android:text="@string/privacy_panel_title" />
+
+                <TextView
+                    style="@style/TextAppearance.MagicTorch.Body"
+                    android:text="@string/privacy_panel_body" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/hideIconSwitch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:text="@string/hide_launcher_icon_switch"
+                    android:textColor="@color/text_primary"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/recoveryText"
+                    style="@style/TextAppearance.MagicTorch.Helper"
+                    android:text="@string/launcher_icon_recovery_hint" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/helpPanel"
+            style="@style/Widget.MagicTorch.PanelCard"
+            android:visibility="gone">
+
+            <LinearLayout
+                style="@style/Widget.MagicTorch.PanelContent">
+
+                <TextView
+                    style="@style/TextAppearance.MagicTorch.SectionTitle"
+                    android:text="@string/help_panel_title" />
+
+                <TextView
+                    style="@style/TextAppearance.MagicTorch.Body"
+                    android:text="@string/help_panel_body" />
+
+                <TextView
+                    style="@style/TextAppearance.MagicTorch.Helper"
+                    android:text="@string/help_panel_tip" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+
+</ScrollView>

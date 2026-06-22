@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">MagicTorch</string>
-    <string name="ready_to_start">Ready. Tap Start Shake Torch and shake the phone firmly to toggle the flashlight.</string>
+    <string name="app_name_display">Magic Torch</string>
+    <string name="app_tagline">Shake-powered flashlight control, organized into simple menus.</string>
+    <string name="grant_permission_prompt">Grant camera permission, then open Torch to start.</string>
+    <string name="ready_to_start">Ready. Open Torch, tap Start Shake Torch, and shake the phone firmly to toggle the flashlight.</string>
     <string name="shake_torch_running">Shake Torch is running. Shake the phone firmly to toggle the flashlight.</string>
     <string name="shake_torch_stopped">Shake Torch stopped.</string>
     <string name="camera_permission_required">Camera permission is required to control the flashlight.</string>
@@ -15,4 +18,16 @@
     <string name="launcher_icon_restored">Launcher icon restored.</string>
     <string name="hide_launcher_icon_switch">Hide launcher icon</string>
     <string name="launcher_icon_recovery_hint">Recovery: dial *#*#62442#*#* or tap the running Shake Torch notification.</string>
+    <string name="menu_torch">Torch</string>
+    <string name="menu_privacy">Privacy</string>
+    <string name="menu_help">Help</string>
+    <string name="torch_panel_title">Torch controls</string>
+    <string name="torch_panel_body">Start the background shake listener when you need hands-free light control. Stop it any time from here.</string>
+    <string name="privacy_panel_title">Privacy &amp; recovery</string>
+    <string name="privacy_panel_body">Keep the launcher tidy by hiding the app icon. The recovery code and running notification can bring it back.</string>
+    <string name="help_panel_title">How it works</string>
+    <string name="help_panel_body">Keep the service notification enabled. After starting, leave the phone screen on or off and shake firmly to toggle the flashlight.</string>
+    <string name="help_panel_tip">Tip: If shaking does not toggle the light, make sure camera permission is allowed and your device has a flash.</string>
+    <string name="start_shake_torch">Start Shake Torch</string>
+    <string name="stop_shake_torch">Stop Shake Torch</string>
 </resources>

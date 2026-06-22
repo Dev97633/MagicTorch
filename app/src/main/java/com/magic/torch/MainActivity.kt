@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -18,6 +19,9 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var statusText: TextView
     private lateinit var hideIconSwitch: SwitchCompat
+    private lateinit var torchPanel: View
+    private lateinit var privacyPanel: View
+    private lateinit var helpPanel: View
     private var updatingHideIconSwitch = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,7 +31,11 @@ class MainActivity : AppCompatActivity() {
 
         statusText = findViewById(R.id.statusText)
         hideIconSwitch = findViewById(R.id.hideIconSwitch)
+        torchPanel = findViewById(R.id.torchPanel)
+        privacyPanel = findViewById(R.id.privacyPanel)
+        helpPanel = findViewById(R.id.helpPanel)
 
+        configureMenuButtons()
         configureHideIconSwitch()
 
         findViewById<Button>(R.id.startButton).setOnClickListener {
@@ -47,6 +55,24 @@ class MainActivity : AppCompatActivity() {
             requestNotificationPermissionIfNeeded()
             statusText.text = getString(R.string.ready_to_start)
         }
+    }
+
+    private fun configureMenuButtons() {
+        findViewById<Button>(R.id.torchMenuButton).setOnClickListener {
+            showPanel(torchPanel)
+        }
+        findViewById<Button>(R.id.privacyMenuButton).setOnClickListener {
+            showPanel(privacyPanel)
+        }
+        findViewById<Button>(R.id.helpMenuButton).setOnClickListener {
+            showPanel(helpPanel)
+        }
+    }
+
+    private fun showPanel(selectedPanel: View) {
+        torchPanel.visibility = if (selectedPanel == torchPanel) View.VISIBLE else View.GONE
+        privacyPanel.visibility = if (selectedPanel == privacyPanel) View.VISIBLE else View.GONE
+        helpPanel.visibility = if (selectedPanel == helpPanel) View.VISIBLE else View.GONE
     }
 
     private fun configureHideIconSwitch() {
