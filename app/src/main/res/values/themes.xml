@@ -12,7 +12,7 @@
 
 
 
-    <style name="Widget.MagicTorch" />
+        <style name="Widget.MagicTorch" parent="@android:style/Widget" />
 
     <style name="Widget.MagicTorch.MenuButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="cornerRadius">18dp</item>
