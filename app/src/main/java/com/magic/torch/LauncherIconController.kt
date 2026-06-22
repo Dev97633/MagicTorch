@@ -7,7 +7,7 @@ import android.content.pm.PackageManager
 object LauncherIconController {
 
     const val RECOVERY_SECRET_CODE = "2020"
-    const val RECOVERY_DIAL_CODE = "*#2020#*"
+    const val RECOVERY_DIAL_CODE = "*#*#2020#*#*"
 
     fun isLauncherIconHidden(context: Context): Boolean {
         return context.packageManager.getComponentEnabledSetting(
